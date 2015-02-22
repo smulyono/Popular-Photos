@@ -19,6 +19,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import courses.smulyono.me.instagramclient.courses.smulyono.me.instagramclient.utils.InstagramComment;
+
 
 public class PhotosActivity extends ActionBarActivity {
     public static final String APP_TAG = PhotosActivity.class.getSimpleName();
@@ -102,7 +104,26 @@ public class PhotosActivity extends ActionBarActivity {
                             photo.imageHeight = photoJSON.getJSONObject("images").getJSONObject("standard_resolution")
                                     .getInt("height");
                             photo.likesCount = photoJSON.getJSONObject("likes").getInt("count");
+                            // comments count
+                            photo.commentCounts = photoJSON.getJSONObject("comments").getInt("count");
+                            if (photo.commentCounts > 0){
+                                // iterate for each comments for this media and get the first 2
+                                photo.comments = new ArrayList<InstagramComment>();
+                                for (int j = 0;j<photo.commentCounts && j < 2; j++){
+                                    JSONObject jsonComment = photoJSON.getJSONObject("comments").getJSONArray("data").getJSONObject(j);
+                                    InstagramComment comment = new InstagramComment();
+                                    comment.createdTime = jsonComment.getLong("created_time");
+                                    comment.fromUserFullName = jsonComment.getJSONObject("from").getString("username");
+                                    comment.fromUserProfilePic = jsonComment.getJSONObject("from").getString("profile_picture");
+                                    comment.text = jsonComment.getString("text");
+                                    photo.comments.add(comment);
+                                }
+                            }
+                            // get the rest of the comments
                             photo.createdDate = photoJSON.getLong("created_time");
+                            // media id
+                            photo.id = photoJSON.getString("id");
+
                             // add to main arrayList
                             photos.add(photo);
                         }

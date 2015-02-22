@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:paddingBottom="15dp"
+    android:background="#FFF"
     >
 
     <RelativeLayout
@@ -9,23 +9,23 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="#b4d0d0d0"
+        android:background="#fffbfbfb"
         android:id="@+id/rlTopPanel"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="5dp"
         android:paddingBottom="5dp"
+        android:paddingTop="5dp"
         >
 
-        <ImageView
+        <com.makeramen.RoundedImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/ivUserProfile"
-            android:layout_centerInParent="true"
-            android:layout_alignParentLeft="true"
             android:minWidth="40dp"
             android:minHeight="40dp"
             android:layout_marginRight="10dp"
+            app:riv_corner_radius="30dp"
             />
 
         <TextView
@@ -61,41 +61,70 @@
         android:adjustViewBounds="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:src="@drawable/iload"
+        android:src="@drawable/imgloading"
         android:alpha="85"
         android:background="#20ffffff"
         android:layout_below="@id/rlTopPanel"
         />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/tvLikes"
-        android:layout_below="@+id/ivPhoto"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="#d01b22ff"
-        android:layout_marginBottom="5dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:textSize="14sp"
-        />
-
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Test"
+        android:text="caption"
         android:id="@+id/tvCaption"
-        android:layout_below="@+id/tvLikes"
+        android:layout_below="@+id/ivPhoto"
         android:layout_centerHorizontal="true"
-        android:textSize="12sp"
+        android:textSize="11sp"
         android:ellipsize="end"
         android:maxLines="3"
         android:textColor="#d05f5c62"
         android:layout_marginBottom="5dp"
         android:paddingLeft="10dp"
+        android:paddingRight="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="10 likes"
+        android:id="@+id/tvLikes"
+        android:layout_below="@+id/tvCaption"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="#d307176d"
+        android:layout_marginBottom="5dp"
+        android:paddingLeft="10dp"
         android:paddingRight="10dp"
+        android:textSize="12sp"
         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="10 Comments"
+        android:id="@+id/tvCommentCount"
+        android:textColor="#d0070707"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textSize="12sp"
+        android:layout_below="@+id/tvCaption"
+        android:layout_toRightOf="@+id/tvLikes"
+        android:layout_toEndOf="@+id/tvLikes"
+        android:layout_marginLeft="44dp"
+        android:layout_marginStart="44dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="... comments ..."
+        android:id="@+id/tvShowComments"
+        android:layout_below="@+id/tvLikes"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+
+        android:autoLink="all" />
+
 </RelativeLayout>

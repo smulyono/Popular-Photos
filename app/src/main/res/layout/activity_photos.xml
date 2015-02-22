@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/swipeContainer"
     tools:context=".PhotosActivity"
-    >
+    android:background="#FFF">
 
     <ListView
         android:layout_width="wrap_content"
@@ -18,5 +18,5 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        />
+        android:background="#FFF" />
 </android.support.v4.widget.SwipeRefreshLayout>

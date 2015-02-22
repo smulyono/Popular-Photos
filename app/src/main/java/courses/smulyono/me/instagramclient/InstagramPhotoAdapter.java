@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 import courses.smulyono.me.instagramclient.courses.smulyono.me.instagramclient.utils.DeviceDimensionsHelper;
+import courses.smulyono.me.instagramclient.courses.smulyono.me.instagramclient.utils.InstagramComment;
 
 /**
  * Created by smulyono on 2/21/15.
@@ -29,6 +30,8 @@ public class InstagramPhotoAdapter extends ArrayAdapter<InstagramPhoto> {
         TextView tvUsername;
         TextView tvTime;
         TextView tvLikes;
+        TextView tvCommentCount;
+        TextView tvShowComments;
 
         ImageView ivPhoto;
         ImageView ivUserProfilePic;
@@ -56,6 +59,8 @@ public class InstagramPhotoAdapter extends ArrayAdapter<InstagramPhoto> {
             viewHolder.tvTime = (TextView) convertView.findViewById(R.id.tvTimecaption);
             viewHolder.tvLikes = (TextView) convertView.findViewById(R.id.tvLikes);
             viewHolder.ivUserProfilePic = (ImageView) convertView.findViewById(R.id.ivUserProfile);
+            viewHolder.tvCommentCount = (TextView) convertView.findViewById(R.id.tvCommentCount);
+            viewHolder.tvShowComments = (TextView) convertView.findViewById(R.id.tvShowComments);
             convertView.setTag(viewHolder);
         } else {
             // retrieve the viewholder
@@ -70,10 +75,22 @@ public class InstagramPhotoAdapter extends ArrayAdapter<InstagramPhoto> {
         // need * 1000; to accomodate the timestamp given in seconds instead of milliseconds
         String timeRelativeString = (String)DateUtils.getRelativeTimeSpanString(photo.createdDate * 1000, System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS);
         viewHolder.tvTime.setText(timeRelativeString);
-        // number of likes
-        viewHolder.tvLikes.setText(NumberFormat.getInstance().format(photo.likesCount) + " likes");
         // caption
         viewHolder.tvCaption.setText(photo.caption);
+        // number of likes
+        viewHolder.tvLikes.setText(NumberFormat.getInstance().format(photo.likesCount) + " likes");
+        // number of comments
+        viewHolder.tvCommentCount.setText("View all " + NumberFormat.getInstance().format(photo.commentCounts) + " comments");
+        // show the first 2 comments in here
+        StringBuffer sbComments = new StringBuffer();
+        for (InstagramComment comment : photo.comments){
+            sbComments.append("<font color='#07176D'>" + comment.fromUserFullName + "</font> " + comment.text + "<br />");
+        }
+        if (photo.commentCounts > 2){
+            sbComments.append("...");
+        }
+        viewHolder.tvShowComments.setText(Html.fromHtml(sbComments.toString()));
+
         // clear out the image view (make sure the old images are not shown during waiting)
         viewHolder.ivPhoto.setImageResource(0);
         // resize to the width
@@ -81,7 +98,7 @@ public class InstagramPhotoAdapter extends ArrayAdapter<InstagramPhoto> {
         // get the image (use picaso, since the image only given as URL from the JSON)
         Picasso.with(getContext()).load(photo.imageUrl)
                 .placeholder(R.drawable.imgloading)
-                .resize(screenWidth,0)
+                .resize(screenWidth, 0)
                 .into(viewHolder.ivPhoto);
 
         // get the userprofile pic to always resize to 40,40
