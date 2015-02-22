@@ -2,8 +2,6 @@ package courses.smulyono.me.instagramclient;
 
 import java.util.List;
 
-import courses.smulyono.me.instagramclient.courses.smulyono.me.instagramclient.utils.InstagramComment;
-
 /**
  * Created by smulyono on 2/21/15.
  */

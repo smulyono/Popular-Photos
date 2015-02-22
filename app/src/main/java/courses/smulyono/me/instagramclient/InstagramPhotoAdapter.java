@@ -1,9 +1,10 @@
 package courses.smulyono.me.instagramclient;
 
+import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.text.Html;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +15,9 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
-import java.util.Date;
 import java.util.List;
 
 import courses.smulyono.me.instagramclient.courses.smulyono.me.instagramclient.utils.DeviceDimensionsHelper;
-import courses.smulyono.me.instagramclient.courses.smulyono.me.instagramclient.utils.InstagramComment;
 
 /**
  * Created by smulyono on 2/21/15.
@@ -35,18 +34,23 @@ public class InstagramPhotoAdapter extends ArrayAdapter<InstagramPhoto> {
 
         ImageView ivPhoto;
         ImageView ivUserProfilePic;
+
+        // some data to hold
+        String mediaId;
     }
 
+    private InstagramViewHolder viewHolder;
+
+    private FragmentManager parentFm ;
 
     public InstagramPhotoAdapter(Context context, List<InstagramPhoto> objects) {
         super(context, android.R.layout.simple_list_item_1, objects);
+        parentFm = ((Activity)context).getFragmentManager();
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         InstagramPhoto photo = getItem(position);
-
-        InstagramViewHolder viewHolder;
 
         if (convertView == null){
             viewHolder = new InstagramViewHolder();
@@ -115,6 +119,18 @@ public class InstagramPhotoAdapter extends ArrayAdapter<InstagramPhoto> {
         } else {
             viewHolder.ivUserProfilePic.setImageResource(R.drawable.usericon);
         }
+
+        viewHolder.mediaId = photo.id;
+        // == set actions on item view ==
+        viewHolder.tvCommentCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // pass the media id
+                // open the new dialogFragment
+                CommentsDialog commentsDialog = CommentsDialog.newInstance(viewHolder.mediaId);
+                commentsDialog.show(parentFm, "commentsDialog");
+            }
+        });
         return convertView;
     }
 }

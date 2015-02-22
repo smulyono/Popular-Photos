@@ -17,15 +17,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import courses.smulyono.me.instagramclient.courses.smulyono.me.instagramclient.utils.InstagramComment;
 
 
 public class PhotosActivity extends ActionBarActivity {
     public static final String APP_TAG = PhotosActivity.class.getSimpleName();
 
-    private static final String CLIENT_ID = "51802e168cb34954bc8fda6fa3bb2e82";
+    public static final String CLIENT_ID = "51802e168cb34954bc8fda6fa3bb2e82";
 
     private ArrayList<InstagramPhoto> photos;
     private InstagramPhotoAdapter aPhotos;
