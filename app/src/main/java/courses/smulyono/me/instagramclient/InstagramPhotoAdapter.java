@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -39,8 +40,6 @@ public class InstagramPhotoAdapter extends ArrayAdapter<InstagramPhoto> {
         String mediaId;
     }
 
-    private InstagramViewHolder viewHolder;
-
     private FragmentManager parentFm ;
 
     public InstagramPhotoAdapter(Context context, List<InstagramPhoto> objects) {
@@ -51,7 +50,9 @@ public class InstagramPhotoAdapter extends ArrayAdapter<InstagramPhoto> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         InstagramPhoto photo = getItem(position);
-
+        
+        final InstagramViewHolder viewHolder;
+        
         if (convertView == null){
             viewHolder = new InstagramViewHolder();
 

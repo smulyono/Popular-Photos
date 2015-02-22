@@ -1,6 +1,7 @@
 package courses.smulyono.me.instagramclient;
 
 import android.content.Context;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ public class InstagramCommentAdapter extends ArrayAdapter<InstagramComment> {
     private class CommentViewHolder {
         ImageView userProfilePic;
         TextView userComment;
+        TextView commentTimestamp;
     }
 
     private CommentViewHolder viewHolder;
@@ -40,6 +42,7 @@ public class InstagramCommentAdapter extends ArrayAdapter<InstagramComment> {
             // register the component into viewHolder
             viewHolder.userComment = (TextView) convertView.findViewById(R.id.tvComment);
             viewHolder.userProfilePic = (ImageView) convertView.findViewById(R.id.ivCommentUserPic);
+            viewHolder.commentTimestamp = (TextView) convertView.findViewById(R.id.tvcommentTimestamp);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (CommentViewHolder) convertView.getTag();
@@ -59,6 +62,10 @@ public class InstagramCommentAdapter extends ArrayAdapter<InstagramComment> {
         }
         // show the comments
         viewHolder.userComment.setText(comment.text);
+        // time stamp
+        // need * 1000; to accomodate the timestamp given in seconds instead of milliseconds
+        String timeRelativeString = (String) DateUtils.getRelativeTimeSpanString(comment.createdTime * 1000, System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS);
+        viewHolder.commentTimestamp.setText(timeRelativeString);
 
         return convertView;
     }

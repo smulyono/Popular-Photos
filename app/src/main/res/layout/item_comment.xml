@@ -4,12 +4,14 @@
     android:layout_height="match_parent"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
     >
 
     <com.makeramen.RoundedImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:id="@+id/ivCommentUserPic"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -18,17 +20,33 @@
         android:layout_centerVertical="true"
         app:riv_corner_radius="30dp"
         />
+    
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="fill_parent"
+        android:text="New Text"
+        android:textSize="10sp"
+        android:layout_centerVertical="true"
+        android:id="@+id/tvcommentTimestamp"
+        android:layout_alignParentTop="true"
+        android:gravity="right"
+        android:layout_alignParentRight="true"
+        />
+
 
     <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
         android:text="New Text"
         android:textSize="14sp"
         android:lines="3"
         android:ellipsize="end"
         android:id="@+id/tvComment"
+        android:paddingLeft="10dp"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/ivCommentUserPic"
+        android:layout_toLeftOf="@id/tvcommentTimestamp"
         android:layout_centerVertical="true"
         />
+
 </RelativeLayout>

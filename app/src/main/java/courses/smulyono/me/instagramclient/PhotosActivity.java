@@ -104,10 +104,12 @@ public class PhotosActivity extends ActionBarActivity {
                             // comments count
                             photo.commentCounts = photoJSON.getJSONObject("comments").getInt("count");
                             if (photo.commentCounts > 0){
-                                // iterate for each comments for this media and get the first 2
+                                // iterate for each comments for this media and get the last 2
+                                // need to get the last 2 entry
+                                JSONArray commentsData = photoJSON.getJSONObject("comments").getJSONArray("data");
                                 photo.comments = new ArrayList<InstagramComment>();
-                                for (int j = 0;j<photo.commentCounts && j < 2; j++){
-                                    JSONObject jsonComment = photoJSON.getJSONObject("comments").getJSONArray("data").getJSONObject(j);
+                                for (int j = commentsData.length() - 1;j >= 0 && photo.comments.size() < 2; j--){
+                                    JSONObject jsonComment = commentsData.getJSONObject(j);
                                     InstagramComment comment = new InstagramComment();
                                     comment.createdTime = jsonComment.getLong("created_time");
                                     comment.fromUserFullName = jsonComment.getJSONObject("from").getString("username");

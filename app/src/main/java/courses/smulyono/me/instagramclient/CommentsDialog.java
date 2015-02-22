@@ -101,7 +101,8 @@ public class CommentsDialog extends DialogFragment {
                 commentAdapter.clear();
                 try {
                     commentsJSON = response.getJSONArray("data");
-                    for (int i = 0;i < commentsJSON.length(); i++){
+                    // need to reverse the entry
+                    for (int i = commentsJSON.length() - 1;i >=0 ; i--){
                         // iterate and put them into list
                         InstagramComment comment = new InstagramComment();
                         JSONObject commentJSON = commentsJSON.getJSONObject(i);
