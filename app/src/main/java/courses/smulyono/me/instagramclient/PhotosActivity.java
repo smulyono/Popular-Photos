@@ -1,5 +1,6 @@
 package courses.smulyono.me.instagramclient;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,11 +28,27 @@ public class PhotosActivity extends ActionBarActivity {
     private ArrayList<InstagramPhoto> photos;
     private InstagramPhotoAdapter aPhotos;
     private ListView lvPhotos;
+    private SwipeRefreshLayout swipeContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photos);
+
+        // setup the swipeRefreshLayout
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        // setup refresh listeneer
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchPopularPhotos();
+            }
+        });
+        swipeContainer.setColorSchemeResources(
+                android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
         photos = new ArrayList<InstagramPhoto>();
 
@@ -57,22 +74,33 @@ public class PhotosActivity extends ActionBarActivity {
         client.get(url, null, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.i(PhotosActivity.APP_TAG, "Reloading new data success!");
+                aPhotos.clear();
                 JSONArray photosJSON = null;
                 try {
                     photosJSON = response.getJSONArray("data");
-                    if (photosJSON != null){
-                        for (int i=0; i < photosJSON.length(); i++){
+                    if (photosJSON != null) {
+                        for (int i=0; i < photosJSON.length(); i++) {
                             JSONObject photoJSON = photosJSON.getJSONObject(i);
                             InstagramPhoto photo = new InstagramPhoto();
                             // Map the property
                             // https://instagram.com/developer/endpoints/media/#get_media_popular
                             photo.username = photoJSON.getJSONObject("user").getString("username");
-                            photo.userProfilePictureUrl = photoJSON.getJSONObject("user").getString("profile_picture");
-                            photo.caption  = photoJSON.getJSONObject("caption").getString("text");
+                            if (photoJSON.has("user") && photoJSON.getJSONObject("user").has("profile_picture")) {
+                                photo.userProfilePictureUrl = photoJSON.getJSONObject("user").getString("profile_picture");
+                            }
+                            if (photoJSON.has("caption") &&
+                                    photoJSON.optJSONObject("caption") != null && photoJSON.getJSONObject("caption").has("text")) {
+                                try {
+                                    photo.caption = photoJSON.getJSONObject("caption").getString("text");
+                                } catch (Exception ev){
+                                    photo.caption = "";
+                                }
+                            }
                             photo.imageUrl = photoJSON.getJSONObject("images").getJSONObject("standard_resolution")
-                                                        .getString("url");
+                                    .getString("url");
                             photo.imageHeight = photoJSON.getJSONObject("images").getJSONObject("standard_resolution")
-                                                        .getInt("height");
+                                    .getInt("height");
                             photo.likesCount = photoJSON.getJSONObject("likes").getInt("count");
                             photo.createdDate = photoJSON.getLong("created_time");
                             // add to main arrayList
@@ -80,6 +108,7 @@ public class PhotosActivity extends ActionBarActivity {
                         }
                     }
                 } catch (JSONException ev){
+                    Log.d(PhotosActivity.APP_TAG, "Fail on " + photosJSON.toString());
                     ev.printStackTrace();
                 }
 
@@ -87,6 +116,8 @@ public class PhotosActivity extends ActionBarActivity {
 
                 // callback (once this proces done, need to notify adapter)
                 aPhotos.notifyDataSetChanged();
+                // to signal refresh finished (on swiperefreshlayout)
+                swipeContainer.setRefreshing(false);
             }
 
             @Override

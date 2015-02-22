@@ -78,7 +78,6 @@ public class InstagramPhotoAdapter extends ArrayAdapter<InstagramPhoto> {
         viewHolder.ivPhoto.setImageResource(0);
         // resize to the width
         int screenWidth = DeviceDimensionsHelper.getDisplayWidth(getContext());
-        Log.i(PhotosActivity.APP_TAG, "Image width: " + screenWidth);
         // get the image (use picaso, since the image only given as URL from the JSON)
         Picasso.with(getContext()).load(photo.imageUrl)
                 .resize(screenWidth,0)
@@ -86,9 +85,13 @@ public class InstagramPhotoAdapter extends ArrayAdapter<InstagramPhoto> {
 
         // get the userprofile pic to always resize to 40,40
         viewHolder.ivUserProfilePic.setImageResource(0);
-        Picasso.with(getContext()).load(photo.userProfilePictureUrl)
-                .resize(40,40)
-                .into(viewHolder.ivUserProfilePic);
+        if (!photo.userProfilePictureUrl.isEmpty()){
+            Picasso.with(getContext()).load(photo.userProfilePictureUrl)
+                    .resize(40,40)
+                    .into(viewHolder.ivUserProfilePic);
+        } else {
+            viewHolder.ivUserProfilePic.setImageResource(R.mipmap.ic_launcher);
+        }
         return convertView;
     }
 }
