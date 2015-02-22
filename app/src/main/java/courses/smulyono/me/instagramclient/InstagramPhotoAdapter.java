@@ -80,6 +80,7 @@ public class InstagramPhotoAdapter extends ArrayAdapter<InstagramPhoto> {
         int screenWidth = DeviceDimensionsHelper.getDisplayWidth(getContext());
         // get the image (use picaso, since the image only given as URL from the JSON)
         Picasso.with(getContext()).load(photo.imageUrl)
+                .placeholder(R.drawable.imgloading)
                 .resize(screenWidth,0)
                 .into(viewHolder.ivPhoto);
 
@@ -87,10 +88,11 @@ public class InstagramPhotoAdapter extends ArrayAdapter<InstagramPhoto> {
         viewHolder.ivUserProfilePic.setImageResource(0);
         if (!photo.userProfilePictureUrl.isEmpty()){
             Picasso.with(getContext()).load(photo.userProfilePictureUrl)
+                    .placeholder(R.drawable.usericon)
                     .resize(40,40)
                     .into(viewHolder.ivUserProfilePic);
         } else {
-            viewHolder.ivUserProfilePic.setImageResource(R.mipmap.ic_launcher);
+            viewHolder.ivUserProfilePic.setImageResource(R.drawable.usericon);
         }
         return convertView;
     }
