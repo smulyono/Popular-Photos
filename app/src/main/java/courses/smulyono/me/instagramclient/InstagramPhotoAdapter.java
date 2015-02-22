@@ -79,15 +79,19 @@ public class InstagramPhotoAdapter extends ArrayAdapter<InstagramPhoto> {
         viewHolder.tvCaption.setText(photo.caption);
         // number of likes
         viewHolder.tvLikes.setText(NumberFormat.getInstance().format(photo.likesCount) + " likes");
+        viewHolder.tvLikes.setVisibility(View.GONE);
         // number of comments
         viewHolder.tvCommentCount.setText("View all " + NumberFormat.getInstance().format(photo.commentCounts) + " comments");
         // show the first 2 comments in here
         StringBuffer sbComments = new StringBuffer();
         for (InstagramComment comment : photo.comments){
-            sbComments.append("<font color='#07176D'>" + comment.fromUserFullName + "</font> " + comment.text + "<br />");
+            if (sbComments.length() > 0){
+                sbComments.append("<br />");
+            }
+            sbComments.append("<font size='11' face='sans' color='#07176D'>" + comment.fromUserFullName + "</font> " + comment.text );
         }
         if (photo.commentCounts > 2){
-            sbComments.append("...");
+            viewHolder.tvLikes.setVisibility(View.VISIBLE);
         }
         viewHolder.tvShowComments.setText(Html.fromHtml(sbComments.toString()));
 
