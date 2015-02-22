@@ -19,4 +19,4 @@ Time spent : __7 hours__
 * __Optional__ : Display image in the same proportional
 * __Bonus__    : show all comments through dialog fragment
 
-![Video Walkthrough](gif/project1.gif)
+![Video Walkthrough](walkthrough.gif)
