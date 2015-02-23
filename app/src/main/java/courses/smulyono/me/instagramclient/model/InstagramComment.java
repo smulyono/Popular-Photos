@@ -1,4 +1,4 @@
-package courses.smulyono.me.instagramclient;
+package courses.smulyono.me.instagramclient.model;
 
 /**
  * Created by smulyono on 2/21/15.

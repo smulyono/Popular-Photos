@@ -1,4 +1,4 @@
-package courses.smulyono.me.instagramclient;
+package courses.smulyono.me.instagramclient.adapter;
 
 import android.app.Activity;
 import android.app.FragmentManager;
@@ -11,14 +11,17 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
 import java.util.List;
 
-import courses.smulyono.me.instagramclient.courses.smulyono.me.instagramclient.utils.DeviceDimensionsHelper;
+import courses.smulyono.me.instagramclient.dialog.CommentsDialog;
+import courses.smulyono.me.instagramclient.R;
+import courses.smulyono.me.instagramclient.model.InstagramComment;
+import courses.smulyono.me.instagramclient.model.InstagramPhoto;
+import courses.smulyono.me.instagramclient.utils.DeviceDimensionsHelper;
 
 /**
  * Created by smulyono on 2/21/15.

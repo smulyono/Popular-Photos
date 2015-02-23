@@ -1,4 +1,4 @@
-package courses.smulyono.me.instagramclient;
+package courses.smulyono.me.instagramclient.model;
 
 import java.util.List;
 

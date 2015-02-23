@@ -1,4 +1,4 @@
-package courses.smulyono.me.instagramclient;
+package courses.smulyono.me.instagramclient.adapter;
 
 import android.content.Context;
 import android.text.format.DateUtils;
@@ -12,7 +12,9 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.zip.Inflater;
+
+import courses.smulyono.me.instagramclient.R;
+import courses.smulyono.me.instagramclient.model.InstagramComment;
 
 /**
  * Created by smulyono on 2/22/15.

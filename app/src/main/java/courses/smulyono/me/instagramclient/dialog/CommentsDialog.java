@@ -1,4 +1,4 @@
-package courses.smulyono.me.instagramclient;
+package courses.smulyono.me.instagramclient.dialog;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
@@ -20,6 +20,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import courses.smulyono.me.instagramclient.R;
+import courses.smulyono.me.instagramclient.activity.PhotosActivity;
+import courses.smulyono.me.instagramclient.adapter.InstagramCommentAdapter;
+import courses.smulyono.me.instagramclient.model.InstagramComment;
 
 /**
  * Created by smulyono on 2/22/15.

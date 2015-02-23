@@ -1,4 +1,4 @@
-package courses.smulyono.me.instagramclient;
+package courses.smulyono.me.instagramclient.activity;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -17,6 +17,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import courses.smulyono.me.instagramclient.R;
+import courses.smulyono.me.instagramclient.adapter.InstagramPhotoAdapter;
+import courses.smulyono.me.instagramclient.model.InstagramComment;
+import courses.smulyono.me.instagramclient.model.InstagramPhoto;
 
 
 public class PhotosActivity extends ActionBarActivity {

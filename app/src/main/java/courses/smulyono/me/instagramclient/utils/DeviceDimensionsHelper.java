@@ -1,4 +1,4 @@
-package courses.smulyono.me.instagramclient.courses.smulyono.me.instagramclient.utils;
+package courses.smulyono.me.instagramclient.utils;
 
 import android.content.Context;
 import android.content.res.Resources;
